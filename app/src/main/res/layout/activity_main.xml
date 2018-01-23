@@ -1,0 +1,31 @@
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="hr.fer.oo.sarassistant.MainActivity">
+
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="hr.fer.oo.sarassistant.MainActivity" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/new_action_button"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_new_action_black_24dp"
+        android:tint="@color/common_google_signin_btn_text_light_default"
+        app:layout_anchor="@id/map"
+        app:layout_anchorGravity="bottom|right|end"
+        />
+
+</android.support.design.widget.CoordinatorLayout>
