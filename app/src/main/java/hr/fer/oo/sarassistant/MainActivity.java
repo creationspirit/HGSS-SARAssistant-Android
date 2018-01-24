@@ -11,6 +11,9 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -101,12 +104,13 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(45.8403496,15.824246);
+        //Move map to zagreb
+        LatLng zagreb = new LatLng(45.8403496,15.824246);
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, DEFAULT_ZOOM));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(zagreb, DEFAULT_ZOOM));
 
+
+        getLocationPermission();
         // Turn on the My Location layer and the related control on the map.
         updateLocationUI();
 
@@ -195,6 +199,28 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         } catch(SecurityException e)  {
             Log.e("Exception: %s", e.getMessage());
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        /* Use AppCompatActivity's method getMenuInflater to get a handle on the menu inflater */
+        MenuInflater inflater = getMenuInflater();
+        /* Use the inflater's inflate method to inflate our menu layout to this menu */
+        inflater.inflate(R.menu.main, menu);
+        /* Return true so that the menu is displayed in the Toolbar */
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.rescuers_list_item) {
+            startActivity(new Intent(MainActivity.this, RescuerListActivity.class));
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
 
