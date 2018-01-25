@@ -1,5 +1,6 @@
 package hr.fer.oo.sarassistant;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -8,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,6 +17,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
+
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -35,14 +41,25 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-import hr.fer.oo.sarassistant.domain.Rescuer;
-import hr.fer.oo.sarassistant.utils.MockData;
+import org.json.JSONException;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import hr.fer.oo.sarassistant.domain.Rescuer;
+import hr.fer.oo.sarassistant.utils.JsonUtils;
+import hr.fer.oo.sarassistant.utils.MockData;
+import hr.fer.oo.sarassistant.utils.NetworkUtils;
+
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, LoaderCallbacks<Rescuer[]> {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private GoogleMap mMap;
+
+    private ArrayList<Rescuer> mRescuers;
 
     private FloatingActionButton newActionFloatingButton;
 
@@ -67,6 +84,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private final LatLng mDefaultLocation = new LatLng(45.8403496,15.824246);
     private static final int DEFAULT_ZOOM = 15;
 
+    private static final int RESCUERS_LOADER_ID = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         newActionFloatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 startActivity(new Intent(MainActivity.this, NewActionActivity.class));
             }
         });
@@ -92,6 +112,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+        getSupportLoaderManager().initLoader(RESCUERS_LOADER_ID, null, MainActivity.this);
 
     }
 
@@ -109,16 +131,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         //Move map to zagreb
-        LatLng zagreb = new LatLng(45.8403496,15.824246);
+        //LatLng zagreb = new LatLng(45.8403496,15.824246);
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(zagreb, DEFAULT_ZOOM));
-        Rescuer[] rescuers = MockData.MOCK_RESCUERS_LIST;
-        for(Rescuer rescuer : rescuers) {
-            MarkerOptions markerOptions = new MarkerOptions().position(rescuer.getLatLng())
-                    .title(rescuer.getFullName());
-            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_rescuer_available_round));
-            mMap.addMarker(markerOptions);
-        }
+        //Rescuer[] rescuers = MockData.MOCK_RESCUERS_LIST;
 
         getLocationPermission();
         // Turn on the My Location layer and the related control on the map.
@@ -226,11 +242,68 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         int id = item.getItemId();
 
         if (id == R.id.rescuers_list_item) {
-            startActivity(new Intent(MainActivity.this, RescuerListActivity.class));
+            Intent intent = new Intent(MainActivity.this, RescuerListActivity.class);
+            intent.putParcelableArrayListExtra("rescuers", mRescuers);
+            startActivity(intent);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    @Override
+    public Loader<Rescuer[]> onCreateLoader(int id, Bundle args) {
+        return new AsyncTaskLoader<Rescuer[]>(this) {
+
+            Rescuer[] mRescuersData = null;
+
+            @Override
+            protected void onStartLoading() {
+                if (mRescuersData != null) {
+                    deliverResult(mRescuersData);
+                } else {
+                    forceLoad();
+                }
+            }
+
+            @Override
+            public Rescuer[] loadInBackground() {
+                try {
+                    return JsonUtils.getRescuersDataFromJson(NetworkUtils.getResponseFromHttpUrl(new URL(NetworkUtils.RESCUERS_LIST_URL)));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    return null;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+
+            @Override
+            public void deliverResult(Rescuer[] data) {
+                mRescuersData = data;
+                super.deliverResult(data);
+            }
+        };
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Rescuer[]> loader, Rescuer[] data) {
+
+        mRescuers = new ArrayList<>(Arrays.asList(data));
+
+        for(Rescuer rescuer : data) {
+            MarkerOptions markerOptions = new MarkerOptions().position(rescuer.getLatLng())
+                    .title(rescuer.getFullName());
+            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_rescuer_available_round));
+            mMap.addMarker(markerOptions);
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Rescuer[]> loader) {
+
     }
 }
 

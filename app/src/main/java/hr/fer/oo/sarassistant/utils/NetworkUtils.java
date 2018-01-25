@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public final class NetworkUtils {
 
-    private static final String RESCUERS_LIST_URL = "http://5e85da88.ngrok.io/api/Users";
+    public static final String RESCUERS_LIST_URL = "http://50ab090c.ngrok.io/api/Users";
 
     /**
      * This method returns the entire result from the HTTP response.

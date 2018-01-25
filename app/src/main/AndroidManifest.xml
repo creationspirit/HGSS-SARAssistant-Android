@@ -41,7 +41,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".NewActionActivity" />
-        <activity android:name=".RescuerListActivity"></activity>
+        <activity android:name=".RescuerListActivity" />
     </application>
 
 </manifest>

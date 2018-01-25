@@ -1,12 +1,15 @@
 package hr.fer.oo.sarassistant.domain;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.android.gms.maps.model.LatLng;
 
 /**
  * Created by nameless on 24.1.2018..
  */
 
-public class Rescuer {
+public class Rescuer implements Parcelable {
 
     private String name;
     private String surname;
@@ -21,6 +24,14 @@ public class Rescuer {
         this.available = available;
         this.lon = lon;
         this.lat = lat;
+    }
+
+    public Rescuer(Parcel in) {
+        name = in.readString();
+        surname = in.readString();
+        available = in.readByte() != 0;
+        lon = in.readDouble();
+        lat = in.readDouble();
     }
 
     public String getName() {
@@ -68,6 +79,33 @@ public class Rescuer {
     }
 
     public LatLng getLatLng() {
-        return new LatLng(lon, lat);
+        return new LatLng(lat, lon);
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeString(surname);
+        parcel.writeByte((byte) (available ? 1 : 0));
+        parcel.writeDouble(lon);
+        parcel.writeDouble(lat);
+    }
+
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator<Rescuer>() {
+
+        @Override
+        public Rescuer createFromParcel(Parcel parcel) {
+            return new Rescuer(parcel);
+        }
+
+        @Override
+        public Rescuer[] newArray(int i) {
+            return new Rescuer[i];
+        }
+    };
 }

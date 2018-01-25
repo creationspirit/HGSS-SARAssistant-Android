@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hr.fer.oo.sarassistant.domain.Rescuer;
 import hr.fer.oo.sarassistant.utils.MockData;
 
@@ -12,6 +15,8 @@ public class RescuerListActivity extends AppCompatActivity implements RescuersAd
 
     private RecyclerView mRecyclerView;
     private RescuersAdapter mRescuersAdapter;
+
+    private ArrayList<Rescuer> mReceivedRescuers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +36,9 @@ public class RescuerListActivity extends AppCompatActivity implements RescuersAd
     }
 
     private void loadRescuerData() {
-        mRescuersAdapter.setRescuerData(MockData.MOCK_RESCUERS_LIST);
+
+        mReceivedRescuers = (ArrayList) getIntent().getParcelableArrayListExtra("rescuers");
+        mRescuersAdapter.setRescuerData(mReceivedRescuers);
     }
 
     @Override

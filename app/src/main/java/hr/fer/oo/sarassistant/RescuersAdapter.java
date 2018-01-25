@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import hr.fer.oo.sarassistant.domain.Rescuer;
 
 /**
@@ -15,7 +17,7 @@ import hr.fer.oo.sarassistant.domain.Rescuer;
 
 public class RescuersAdapter extends RecyclerView.Adapter<RescuersAdapter.RescuersAdapterViewHolder> {
 
-    private Rescuer[] mRescuersData;
+    private ArrayList<Rescuer> mRescuersData;
 
     /*
      * An on-click handler that we've defined to make it easy for an Activity to interface with
@@ -45,7 +47,7 @@ public class RescuersAdapter extends RecyclerView.Adapter<RescuersAdapter.Rescue
 
     @Override
     public void onBindViewHolder(RescuersAdapterViewHolder holder, int position) {
-        Rescuer rescuer = mRescuersData[position];
+        Rescuer rescuer = mRescuersData.get(position);
         holder.mRescuerName.setText(rescuer.getFullName());
         holder.mRescuerDistance.setText("2.5km");
     }
@@ -53,10 +55,10 @@ public class RescuersAdapter extends RecyclerView.Adapter<RescuersAdapter.Rescue
     @Override
     public int getItemCount() {
         if (null == mRescuersData) return 0;
-        return mRescuersData.length;
+        return mRescuersData.size();
     }
 
-    public void setRescuerData(Rescuer[] rescuersData) {
+    public void setRescuerData(ArrayList<Rescuer> rescuersData) {
         mRescuersData = rescuersData;
         notifyDataSetChanged();
     }
@@ -77,7 +79,7 @@ public class RescuersAdapter extends RecyclerView.Adapter<RescuersAdapter.Rescue
         @Override
         public void onClick(View view) {
             int adapterPosition = getAdapterPosition();
-            Rescuer rescuer = mRescuersData[adapterPosition];
+            Rescuer rescuer = mRescuersData.get(adapterPosition);
             mClickHandler.onClick(rescuer);
         }
     }
