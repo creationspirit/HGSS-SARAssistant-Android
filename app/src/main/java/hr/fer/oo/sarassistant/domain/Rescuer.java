@@ -1,5 +1,7 @@
 package hr.fer.oo.sarassistant.domain;
 
+import com.google.android.gms.maps.model.LatLng;
+
 /**
  * Created by nameless on 24.1.2018..
  */
@@ -13,7 +15,7 @@ public class Rescuer {
     private double lon;
     private double lat;
 
-    public Rescuer(String name, String surname, boolean available, double lon, double lat) {
+    public Rescuer(String name, String surname, boolean available, double lat, double lon) {
         this.name = name;
         this.surname = surname;
         this.available = available;
@@ -63,5 +65,9 @@ public class Rescuer {
 
     public String getFullName() {
         return name + " " + surname;
+    }
+
+    public LatLng getLatLng() {
+        return new LatLng(lon, lat);
     }
 }

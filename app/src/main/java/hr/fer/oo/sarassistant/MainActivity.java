@@ -28,11 +28,15 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import hr.fer.oo.sarassistant.domain.Rescuer;
+import hr.fer.oo.sarassistant.utils.MockData;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -60,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
-    private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
+    private final LatLng mDefaultLocation = new LatLng(45.8403496,15.824246);
     private static final int DEFAULT_ZOOM = 15;
 
     @Override
@@ -107,8 +111,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //Move map to zagreb
         LatLng zagreb = new LatLng(45.8403496,15.824246);
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(zagreb, DEFAULT_ZOOM));
-
+        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(zagreb, DEFAULT_ZOOM));
+        Rescuer[] rescuers = MockData.MOCK_RESCUERS_LIST;
+        for(Rescuer rescuer : rescuers) {
+            MarkerOptions markerOptions = new MarkerOptions().position(rescuer.getLatLng())
+                    .title(rescuer.getFullName());
+            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_rescuer_available_round));
+            mMap.addMarker(markerOptions);
+        }
 
         getLocationPermission();
         // Turn on the My Location layer and the related control on the map.
