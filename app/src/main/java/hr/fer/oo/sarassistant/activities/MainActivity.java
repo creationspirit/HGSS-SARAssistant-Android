@@ -1,4 +1,4 @@
-package hr.fer.oo.sarassistant;
+package hr.fer.oo.sarassistant.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -7,9 +7,7 @@ import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -26,8 +24,6 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.GeoDataClient;
 import com.google.android.gms.location.places.PlaceDetectionClient;
-import com.google.android.gms.location.places.PlaceLikelihood;
-import com.google.android.gms.location.places.PlaceLikelihoodBufferResponse;
 import com.google.android.gms.location.places.Places;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -48,9 +44,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import hr.fer.oo.sarassistant.R;
 import hr.fer.oo.sarassistant.domain.Rescuer;
 import hr.fer.oo.sarassistant.utils.JsonUtils;
-import hr.fer.oo.sarassistant.utils.MockData;
 import hr.fer.oo.sarassistant.utils.NetworkUtils;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, LoaderCallbacks<Rescuer[]> {
@@ -85,6 +81,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final int DEFAULT_ZOOM = 15;
 
     private static final int RESCUERS_LOADER_ID = 0;
+
+    //Location to focus when returning from rescuer details
+    private LatLng mFocusRescuerLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,7 +142,25 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
 
+        if(mFocusRescuerLocation != null) {
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mFocusRescuerLocation, DEFAULT_ZOOM));
+            mFocusRescuerLocation = null;
+        }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent intent = getIntent();
+        if(intent.hasExtra("focus_rescuer_lat") && intent.hasExtra("focus_rescuer_lon")) {
+
+                   mFocusRescuerLocation = new LatLng(intent.getDoubleExtra("focus_rescuer_lat", mDefaultLocation.latitude),
+                            intent.getDoubleExtra("focus_rescuer_lon",  mDefaultLocation.longitude));
+        }
+        getSupportLoaderManager().restartLoader(RESCUERS_LOADER_ID, null, this);
+
+    }
+
 
     private void getLocationPermission() {
     /*
@@ -244,8 +261,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (id == R.id.rescuers_list_item) {
             Intent intent = new Intent(MainActivity.this, RescuerListActivity.class);
             intent.putParcelableArrayListExtra("rescuers", mRescuers);
+            //intent.putExtra("my_lat", mLastKnownLocation.getLatitude());
+            //intent.putExtra("my_lon", mLastKnownLocation.getLongitude());
             startActivity(intent);
             return true;
+        } else if (id == R.id.action_list_item) {
+            startActivity(new Intent(this, ActionListActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

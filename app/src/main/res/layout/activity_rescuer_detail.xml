@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="hr.fer.oo.sarassistant.activities.RescuerDetailActivity">
+
+    <ImageView
+        android:id="@+id/detail_available_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:src="@mipmap/ic_rescuer_available_round"/>
+
+    <TextView
+        android:id="@+id/detail_fullname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Svatoplug Svetovski"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp"
+        android:layout_gravity="end"
+        app:layout_anchor="@id/detail_available_image"
+        app:layout_anchorGravity="end"/>
+
+    <TextView
+        android:id="@+id/detail_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+        android:paddingLeft="16dp"
+        android:layout_gravity="end|bottom"
+        app:layout_anchor="@id/detail_fullname"
+        app:layout_anchorGravity="start|bottom"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:layout_anchor="@id/detail_available_image"
+        app:layout_anchorGravity="bottom">
+
+        <TextView
+            android:id="@+id/detail_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            style="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+            android:layout_gravity="bottom"
+            />
+
+        <TextView
+            android:id="@+id/detail_address_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingTop="8dp"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_gravity="bottom"
+            app:layout_anchor="@id/detail_available_image"
+            app:layout_anchorGravity="bottom"
+            android:text="Adresa"
+            />
+
+        <TextView
+            android:id="@+id/detail_address_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingBottom="8dp"
+            style="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+            android:layout_gravity="bottom"
+            />
+
+        <TextView
+            android:id="@+id/detail_mobile1_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingTop="8dp"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_gravity="bottom"
+            app:layout_anchor="@id/detail_available_image"
+            app:layout_anchorGravity="bottom"
+            android:text="Telefon 1"
+            />
+
+        <TextView
+            android:id="@+id/detail_mobile1_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingBottom="16dp"
+            style="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+            android:layout_gravity="bottom"
+            />
+
+        <TextView
+            android:id="@+id/detail_mobile2_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingTop="8dp"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_gravity="bottom"
+            app:layout_anchor="@id/detail_available_image"
+            app:layout_anchorGravity="bottom"
+            android:text="Telefon 2"
+            />
+
+        <TextView
+            android:id="@+id/detail_mobile2_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingBottom="16dp"
+            style="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+            android:layout_gravity="bottom"
+            />
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_locate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_dialog_map" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_call"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_menu_call" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_sms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_dialog_email" />
+
+</android.support.design.widget.CoordinatorLayout>

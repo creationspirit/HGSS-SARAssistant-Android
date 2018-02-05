@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="hr.fer.oo.sarassistant.activities.RescuerListActivity">
+    tools:context="hr.fer.oo.sarassistant.activities.ActionListActivity">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview_rescuers"
+        android:id="@+id/recyclerview_actions"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

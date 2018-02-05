@@ -6,4 +6,6 @@
 
     <color name="notAvailable">#FF2233</color>
     <color name="available">#33BB11</color>
+
+    <color name="actionBackground">#BBBBBB</color>
 </resources>

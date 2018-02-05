@@ -1,9 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="hr.fer.oo.sarassistant.NewActionActivity">
+    tools:context="hr.fer.oo.sarassistant.activities.ActionDetailActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            style="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+            android:text="Stvori novu akciju"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingTop="4dp"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:text="Naziv"
+            />
+
+        <EditText
+            android:id="@+id/action_title_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingBottom="8dp"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:text="Voditelj"
+            />
+
+        <Spinner
+            android:id="@+id/leader_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingTop="4dp"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:text="Opis"
+            />
+
+        <EditText
+            android:id="@+id/action_description_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingBottom="8dp"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:text="Poruka za uzbunjivanje"
+            />
+
+        <EditText
+            android:id="@+id/action_alert_message_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Spinner
+            android:id="@+id/message_template_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingBottom="8dp"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:text="Vrijeme"
+            />
+
+        <EditText
+            android:id="@+id/action_datetime"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:inputType="datetime"
+            android:focusable="false"
+            android:hint="Choose time"
+            android:layout_marginBottom="30dp"
+            />
+
+    </LinearLayout>
+    </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_create_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_input_add" />
+
+</android.support.design.widget.CoordinatorLayout>
+

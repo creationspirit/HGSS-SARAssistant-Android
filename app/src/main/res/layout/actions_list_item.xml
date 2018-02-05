@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/actionBackground"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp">
+
+    <LinearLayout
+        android:layout_margin="16dp"
+        android:id="@+id/action_info_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/action_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+            />
+
+        <TextView
+            android:id="@+id/action_leader_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            style="@style/TextAppearance.AppCompat.Body1"
+            />
+
+        <TextView
+            android:id="@+id/action_short_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.AppCompat.Body1"
+            />
+
+    </LinearLayout>
+
+    <TextView android:id="@+id/action_status"
+        android:layout_margin="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        style="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+        android:layout_alignParentEnd="true"
+        android:layout_alignEnd="@id/action_info_layout" />
+
+</RelativeLayout>

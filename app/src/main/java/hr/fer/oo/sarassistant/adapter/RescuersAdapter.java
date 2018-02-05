@@ -1,7 +1,8 @@
-package hr.fer.oo.sarassistant;
+package hr.fer.oo.sarassistant.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import hr.fer.oo.sarassistant.R;
 import hr.fer.oo.sarassistant.domain.Rescuer;
 
 /**
@@ -49,7 +51,9 @@ public class RescuersAdapter extends RecyclerView.Adapter<RescuersAdapter.Rescue
     public void onBindViewHolder(RescuersAdapterViewHolder holder, int position) {
         Rescuer rescuer = mRescuersData.get(position);
         holder.mRescuerName.setText(rescuer.getFullName());
-        holder.mRescuerDistance.setText("2.5km");
+        holder.mRescuerDistance.setText(String.format("%.2fkm", rescuer.getCachedDistance()/1000.0));
+        if(rescuer.isAvailable()) holder.itemView.setBackgroundColor(0x9904B404);
+        else holder.itemView.setBackgroundColor(0x99FA0F0F);
     }
 
     @Override
@@ -80,7 +84,9 @@ public class RescuersAdapter extends RecyclerView.Adapter<RescuersAdapter.Rescue
         public void onClick(View view) {
             int adapterPosition = getAdapterPosition();
             Rescuer rescuer = mRescuersData.get(adapterPosition);
+            Log.d("Click", "Am i clicked?");
             mClickHandler.onClick(rescuer);
         }
     }
+
 }

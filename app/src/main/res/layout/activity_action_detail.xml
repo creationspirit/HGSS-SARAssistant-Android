@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="hr.fer.oo.sarassistant.activities.ActionDetailActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        >
+
+        <TextView
+            android:id="@+id/action_detail_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            style="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+            android:layout_gravity="bottom"
+            />
+
+        <TextView
+            android:id="@+id/action_detail_leader_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingTop="8dp"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_gravity="bottom"
+            android:text="Vođa"
+            />
+
+        <TextView
+            android:id="@+id/action_detail_leader_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingBottom="8dp"
+            style="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+            />
+
+        <TextView
+            android:id="@+id/action_detail_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingTop="8dp"
+            style="@style/TextAppearance.AppCompat.Body1"
+            />
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_action_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_menu_mylocation" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_call_leader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_menu_call" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_view_participants"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_dialog_info" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_make_action_unactive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:layout_marginStart="@dimen/fab_margin"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="80dp"
+        app:srcCompat="@android:drawable/ic_dialog_alert"
+        />
+
+</android.support.design.widget.CoordinatorLayout>
